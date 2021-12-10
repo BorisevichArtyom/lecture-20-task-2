@@ -4,30 +4,12 @@ import by.itacademy.javaenterprise.borisevich.config.PersistanceConfig;
 import by.itacademy.javaenterprise.borisevich.entity.DiaryUser;
 import by.itacademy.javaenterprise.borisevich.entity.Training;
 import by.itacademy.javaenterprise.borisevich.exception.DAOException;
-import liquibase.Contexts;
-import liquibase.Liquibase;
-import liquibase.database.Database;
-import liquibase.database.DatabaseFactory;
-import liquibase.database.jvm.JdbcConnection;
-import liquibase.resource.ClassLoaderResourceAccessor;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.utility.DockerImageName;
-
-import javax.sql.DataSource;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.Instant;
-import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,11 +61,10 @@ public class TrainingDAOTest {
     }
 
     @Test
-    public void testUpdateTrainingInvalid() throws DAOException {
-        assertThrows(DataIntegrityViolationException.class, () -> {
-            trainingDAO.saveOrUpdate(new Training());
-        });
+    public void testUpdateTrainingInvalid() {
+        assertThrows(DataIntegrityViolationException.class, () -> trainingDAO.saveOrUpdate(new Training()));
     }
+
     @Test
     public void testDeleteTraining() throws DAOException {
         Training training = Training.builder().trainingDate(Instant.now()).user(DiaryUser.builder().id(1L).build()).build();
