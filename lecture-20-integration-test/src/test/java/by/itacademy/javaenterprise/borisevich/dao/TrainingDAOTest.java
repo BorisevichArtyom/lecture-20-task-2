@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 public class TrainingDAOTest {
-    private static MySQLContainer<?> mysqlOldVersion;
 
     private AnnotationConfigApplicationContext applicationContext =
             new AnnotationConfigApplicationContext(PersistanceConfig.class);
